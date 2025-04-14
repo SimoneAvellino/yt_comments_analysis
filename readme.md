@@ -2,30 +2,92 @@
 
 **Kaggle Dataset**: [YouTube Comments Dataset](https://www.kaggle.com/datasets/atifaliak/youtube-comments-dataset)
 
+The dataset is made up with two columns:
+- Comment: text describing the comment
+- Sentiment: the sentiment of the comment (Positive, Neutral, Negative)
+
 **Team Members**:
 - Stefan Schobesberger  
-- Mostafa [Last Name TBD]  
+- Mostafa Nafie
 - Simone Avellino  
 
 ---
+
+### Points that should be covered
+
+We will use NLP technique seen in the course:
+
+1. Basic Text Processing
+    - Regex
+    - Tokenization
+    - POS
+
+2. Language Modeling
+    - Uniform Language Model
+    - Unigram Language Model
+    - Stupid Backoff Language Model
+    - Laplace Unigram LanguageModel
+    - Laplace Bigram Language Model
+    - Kneser Ney Language Model
+
+3. Spelling correction
+    - Minimum edit distance
+    - Noisy channel
+
+4. Text Classification
+    - For example: Spam detection
+    - For example: Language Identification
+    - Naïve Bayes
+    - Bag of words
+
+5. Sentiment Analysis
+    - Positive or negative review
+    - Holder (source) of attitude
+    - Target (aspect) of attitude
+    - Three stages: 
+        - Simplest task: Is the attitude of this text positive or negative?
+        - More complex: Rank the attitude of this text from 1 to 5
+        - Advanced: Detect the target, source, or complex attitude types
+    - Baseline Algorithm
+        - Tokenization
+        - Feature extraction
+        - Classification:
+
+6. Information retrieval
+    - Precision, Recall
+    - Term-document Incidence Matrix
+    - Inverted index
+    - Ranked retrieval
+    - Jaccard coefficient
+    - Term frequency (tf), log tf
+    - Document frequency (df), inververse df
+    - Vector space model
+        - cosine similarity
+    - ddd.qqq
+    - Evaluating IR System
+        - Precision-Recall curve
+        - Mean average precision (MAP)
+
+7. POS tagging
+8. Parsing Phrase Structure Grammars
+    - CYK
+        - Normal CKY
+        - Extended CKY
+        - CYK for PCFGs
+
+--- 
 
 ### 🧠 General Aim
 
 The goal of this project is to analyze YouTube comments to uncover insights into user engagement, sentiment, and behavioral patterns. By applying techniques from natural language processing (NLP).
 
-- point 1
-- ...
-
----
-
-### Points to cover
-
-We will use NLP technique seen in the course:
-
-- Basic Text Processing
-    - Regex
-    - POS
-    - 
+-  (1) Basic Tokenization for the classifier:
+    - Regex to clean the input (ex. remove mentions)
+    - Tokenization for the point 4 and 5.
+- (2, 3) Language modeling and spelling correction:
+    - Detect and correct errors in youtube comments
+- (4, 5) Sentiment analisys and text classification: build a classifier that choose the sentiment of a new comment.
+- (6) Information retrieval: extract new youtube comments from a link to text the classifier
 
 ---
 
@@ -34,26 +96,8 @@ We will use NLP technique seen in the course:
 
 To ensure an efficient and collaborative workflow, the project is divided into the following main areas:
 
-#### 1. **Data Preprocessing & Exploration**
-- Cleaning and standardizing text data (removing stopwords, emojis, URLs, etc.)
-- Exploratory data analysis (EDA) on comment metadata (likes, replies, timestamps)
-- Visualization of comment frequency, length, and engagement metrics  
+- Simone: points 2 and 3
 
-#### 2. **Sentiment Analysis**
-- Apply sentiment analysis models (e.g., VADER, TextBlob, or transformer-based models)
-- Visualize sentiment trends across different topics or timeframes
-- Correlate sentiment with engagement (likes, replies)
+- Stefan: points 1 and 6
 
-#### 3. **Topic Modeling**
-- Use NLP methods like LDA, BERTopic, or clustering for topic discovery
-- Summarize and visualize key topics in the comment sections
-- Identify changes in topic focus over time or across videos
-
-#### 4. **Toxicity & Spam Detection**
-- Build classification models to flag toxic or spammy comments
-- Use pretrained models (e.g., Google’s Perspective API, Detoxify)
-- Evaluate performance and suggest moderation strategies
-
-#### 5. **Reporting & Dashboard (Optional)**
-- Create an interactive dashboard for exploring insights (e.g., using Streamlit or Dash)
-- Compile findings into a well-documented report or presentation
+- Mostafa: points 4 and 5
