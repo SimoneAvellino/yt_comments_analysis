@@ -75,6 +75,42 @@ We will use NLP technique seen in the course:
         - Extended CKY
         - CYK for PCFGs
 
+###
+Tutorial 1
+	1. Computing with Language: Texts and Words 
+	2. Texts as Lists of Words
+	3.Computing with Language: Simple Statistics
+	4. Back to Python: Making Decisions and Taking Control (Conditionals, loops)
+
+Tutorial 2
+	1. Accessing Text Corpora
+	2. Conditional Frequency Distributions
+
+Tutorial 3
+	3.1   Accessing Text from the Web and from Disk
+	3.2   Strings: Text Processing at the Lowest Level
+	3.3   Text Processing with Unicode
+	3.6   Normalising Text
+	3.9   Formatting: From Lists to Strings
+
+Tutorial 4
+	1.1   Gender Identification
+	1.2   Choosing The Right Features
+	1.3   Document Classification
+	3.1 The Test Set
+	3.2 Accuracy
+	3.3 Precision and Recall
+	3.4 Confusion Matrices
+	3.4 Cross Validation
+
+Tutorial 5:
+	1. Using a Tagger
+	2. Tagged Corpora
+	4. Automatic Tagging
+	5. N-Gram Tagging
+	6. Part of Speech Tagging
+	7. Exploiting Context
+
 --- 
 
 ### 🧠 General Aim
