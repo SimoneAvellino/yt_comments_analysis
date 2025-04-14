@@ -86,7 +86,7 @@ The goal of this project is to analyze YouTube comments to uncover insights into
     - Tokenization for the point 4 and 5.
 - (2, 3) Language modeling and spelling correction:
     - Detect and correct errors in youtube comments
-- (4, 5) Sentiment analisys and text classification: build a classifier that choose the sentiment of a new comment.
+- (4, 5) Sentiment analisys and text classification: build a classifier that choose the sentiment of a new comment. Use POS tagger, regex and so on to extract the features.
 - (6) Information retrieval: extract new youtube comments from a link to text the classifier
 
 ---
