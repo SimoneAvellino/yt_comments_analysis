@@ -4,14 +4,14 @@ import re
 
 class SpellingCorrector:
     
-    def __init__(self, language_model:LanguageModel):
+    def __init__(self, language_model:LanguageModel, channel_model:ChannelModel):
 
         """
         Initializes the SpellingCorrector with a language model and a channel model.
         :param language_model: The language model to be used for correction.
         """
         self.language_model = language_model
-        self.channel_model = ChannelModel(language_model.vocabulary, './data/common_errors.txt')
+        self.channel_model = channel_model
         
     def tokenize(self, sentence: str) -> list[str]:
         """
@@ -45,6 +45,7 @@ class SpellingCorrector:
     def choose_best_candidate(self, candidates: list[(str, str, int)], misspelled_word: str) -> str:
         """
         Choose the best candidate based on the language model.
+        
         :param candidates: The list of candidates. Format: [(operation, word, i), ...] where operation is the edit operation, word is the candidate word and i is the index of the character in the original word.
         :param token: The original token.
         :return: The best candidate.
