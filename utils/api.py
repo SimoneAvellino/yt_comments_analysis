@@ -37,7 +37,6 @@ def retrieve_comments(url, number_of_comments):
 
     return result
 
-
 def retrieve_video_info(url):
     """
     Fetches YouTube video information from a given video URL.
@@ -54,3 +53,15 @@ def retrieve_video_info(url):
         "title": yt.title,
         "description": yt.description
     }
+    
+def get_sentiment(comment):
+    """
+    Function to get sentiment of a comment.
+    
+    Args:
+        comment (str): The comment text.
+
+    Returns:
+        int: 1 for positive, 0 for neutral, -1 for negative.
+    """
+    pass

@@ -1,5 +1,5 @@
 from collections import defaultdict
-from vocabulary import Vocabulary
+from spelling_correction.vocabulary import Vocabulary
 
 class Corpus:
     """

@@ -1,5 +1,5 @@
-from language_model import LanguageModel
-from channel_model import ChannelModel
+from spelling_correction.language_model import LanguageModel
+from spelling_correction.channel_model import ChannelModel
 import re
 
 class SpellingCorrector:
@@ -38,6 +38,8 @@ class SpellingCorrector:
                 # If not, generate candidates and choose the best one
                 candidates = self.channel_model.similar_words(token)
                 best_candidate = self.choose_best_candidate(candidates, token)
+                if len(candidates) == 0:
+                    continue
                 sentence = sentence.replace(token, best_candidate)
                 
         return sentence

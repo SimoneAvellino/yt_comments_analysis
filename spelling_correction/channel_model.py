@@ -1,4 +1,4 @@
-from vocabulary import Vocabulary
+from spelling_correction.vocabulary import Vocabulary
 import re
 
 INSERT = "insert"
@@ -92,6 +92,8 @@ class ChannelModel:
         :param i: The index of the character in the original word.
         :return: The probability of the misspelled word given the correct word.
         """
+        if i >= len(correct_word):
+            return 0
         x = correct_word[i-1]   # w_(i-1)
         y = correct_word[i]     # w_i
         xy = x + y              # w_(i-1)w_i
@@ -102,7 +104,7 @@ class ChannelModel:
                 count_x_y += 1
             xy_indexes = ChannelModel.all_indexes_of_substring(word_in_channel, xy)
             for index in xy_indexes:
-                if misspell_in_channel[index + 1] != x:
+                if index + 1 < len(misspell_in_channel) and misspell_in_channel[index + 1] != x:
                     count_del_x_y += 1
         
         return count_del_x_y / count_x_y if count_x_y > 0 else 0

@@ -1,6 +1,6 @@
-from corpus import Corpus
+from spelling_correction.corpus import Corpus
 from abc import ABC, abstractmethod
-from vocabulary import Vocabulary
+from spelling_correction.vocabulary import Vocabulary
 
 class LanguageModel(ABC):
     
