@@ -3,7 +3,6 @@ import unicodedata
 import nltk
 from youtube_comment_downloader import YoutubeCommentDownloader
 from .text_cleaner import clean_text
-from pytube import YouTube
 
 
 # Ensure NLTK tokenizer is available
@@ -59,23 +58,6 @@ def get_video_metadata_with_ytdlp(url):
 # this function can then be called with this code:
 meta = get_video_metadata_with_ytdlp(url)
 print(meta["title"], meta["description"])
-
-def retrieve_video_info(url):
-    """
-    Fetches YouTube video information from a given video URL.
-
-    Args:
-        url (str): YouTube video URL.
-
-    Returns:
-        dict: Video information including title, description, and view count.
-    """
-    yt = YouTube(url)
-    
-    return {
-        "title": yt.title,
-        "description": yt.description
-    }
     
 def get_sentiment(comment):
     """

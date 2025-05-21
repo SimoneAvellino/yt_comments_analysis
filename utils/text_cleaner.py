@@ -5,7 +5,7 @@ def clean_text(text):
     text = text.lower()
     text = re.sub(r'@\w+', '', text)  # remove mentions
     text = re.sub(r"http\S+|www\.\S+", "", text)  # remove URLs
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("utf-8", "ignore")  # remove emojis
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("utf-8", "ignore")  # remove emojis and non-latin characters
     text = re.sub(r"[^\w\s]", " ", text)  # remove punctuation
     text = re.sub(r"\s+", " ", text).strip()
     return text
