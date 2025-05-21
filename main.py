@@ -4,6 +4,7 @@ from utils.text_cleaner import clean_text
 import argparse
 from spelling_correction.corpus import Corpus
 import textwrap
+from tqdm import tqdm
 
 # -------- Corpus from nltk --------
 from nltk.corpus import brown
@@ -20,6 +21,11 @@ channel_model = ChannelModel(language_model.vocabulary, './data/common_errors.tx
 # -------- Spelling Correction -------
 from spelling_correction.spelling_corrector import SpellingCorrector
 spelling_corrector = SpellingCorrector(language_model, channel_model)
+
+from sentiment_analysis.naive_bayes import NaiveBayes
+# Load the model
+model = NaiveBayes()
+model = model.loadModel('naive_bayes_model.pkl')
 
 def main():
     parser = argparse.ArgumentParser()
@@ -45,38 +51,30 @@ def main():
     for line in textwrap.wrap(info['description'], width=50):
         print("    ", line)
     print("\033[91mStats on comments:\033[0m")
-    print("    ", f"Number of comments retrieved {"(all)" if not args.number_of_comments else ""}:", len(comments))
+    print("    ", f"Number of comments retrieved {'(all)' if not args.number_of_comments else ''}:", len(comments))
     print("    ", "Number of likes:", info['like_count'])
     print("    ", "Number of views:", info['view_count'])
     
     sentiment = {
-        "Positive": 0,
-        "Negative": 0,
-        "Neutral": 0
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0
     }
     
     # # Spelling correction for each comment
-    # for comment in comments:
-    #     author = comment['username']
-    #     original_comment = comment['comment']
-    #     cleaned_comment = clean_text(original_comment)
-    #     # spelling correction so that the comment is parsed correctly from the machine learning model
-    #     comment_for_model = spelling_corrector.correct(cleaned_comment)
-        
-    #     classification, (prob_pos, prob_neu, prob_neg) += get_sentiment(comment_for_model)
-        
-    #     sentiment["Positive"] += prob_pos
-    #     sentiment["Negative"] += prob_neg
-    #     sentiment["Neutral"] += prob_neu
-        
-    # sentiment["Positive"] = sentiment["Positive"] / len(comments)
-    # sentiment["Negative"] = sentiment["Negative"] / len(comments)
-    # sentiment["Neutral"] = sentiment["Neutral"] / len(comments)
+    for comment in tqdm(comments, desc="Evaluating comments", unit="comment"):
+        author = comment['username']
+        original_comment = comment['comment']
+        cleaned_comment = clean_text(original_comment)
+        # spelling correction so that the comment is parsed correctly from the machine learning model
+        comment_for_model = spelling_corrector.correct(cleaned_comment)
+        classification, (prob_pos, prob_neu, prob_neg) = model.predict(comment_for_model)
+        sentiment[classification] += 1
     
     print("\033[91mSentiment Analysis:\033[0m")
-    print("    ", "Positive:", sentiment["Positive"], "%")
-    print("    ", "Negative:", sentiment["Negative"], "%")
-    print("    ", "Neutral:", sentiment["Neutral"], "%")
+    print("    ", "Positive:", sentiment["positive"]/len(comments) * 100, "%")
+    print("    ", "Negative:", sentiment["negative"]/len(comments) * 100, "%")
+    print("    ", "Neutral:", sentiment["neutral"]/len(comments) * 100, "%")
 
 
 if __name__ == "__main__":

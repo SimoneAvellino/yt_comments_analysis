@@ -93,8 +93,8 @@ class NaiveBayes:
         words = [word.lower() for word in words]
         if self.FILTER_STOP_WORDS:
             words = self.filterStopWords(words)
-        label, _ = self.classify(words)
-        return label
+        label, scores = self.classify(words)
+        return label, scores 
   
     def filterStopWords(self, words):
         filtered = []
