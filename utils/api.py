@@ -37,6 +37,29 @@ def retrieve_comments(url, number_of_comments):
 
     return result
 
+# Pytube is apparently broken right now, that seems to happens often. I added a new function using yt-dlp instead.
+# yt-dlp is apparently much more stable then pytube, it's working for me.
+# Downside is that it's technically a command-line tool, so we have to use subprocess or something like that, but it's not that complex.
+
+import subprocess
+import json
+
+def get_video_metadata_with_ytdlp(url):
+    result = subprocess.run(
+        ["yt-dlp", "--dump-json", "--skip-download", url],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+    if result.returncode != 0:
+        print("❌ Error:", result.stderr)
+        return None
+    return json.loads(result.stdout)
+
+# this function can then be called with this code:
+meta = get_video_metadata_with_ytdlp(url)
+print(meta["title"], meta["description"])
+
 def retrieve_video_info(url):
     """
     Fetches YouTube video information from a given video URL.
