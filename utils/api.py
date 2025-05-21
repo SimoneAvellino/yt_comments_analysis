@@ -2,14 +2,12 @@ import re
 import unicodedata
 import nltk
 from youtube_comment_downloader import YoutubeCommentDownloader
-from .text_cleaner import clean_text
-from pytube import YouTube
+import subprocess
+import json
 
+nltk.download('punkt', quiet=True)
 
-# Ensure NLTK tokenizer is available
-nltk.download('punkt')
-
-def retrieve_comments(url, number_of_comments):
+def retrieve_comments(url, number_of_comments=None):
     """
     Fetches YouTube comments from a given video URL.
 
@@ -27,7 +25,7 @@ def retrieve_comments(url, number_of_comments):
 
     result = []
     for i, comment in enumerate(generator):
-        if i >= number_of_comments:
+        if number_of_comments  and i >= number_of_comments:
             break
         raw_text = comment.get("text", "")
         result.append({
@@ -36,13 +34,6 @@ def retrieve_comments(url, number_of_comments):
         })
 
     return result
-
-# Pytube is apparently broken right now, that seems to happens often. I added a new function using yt-dlp instead.
-# yt-dlp is apparently much more stable then pytube, it's working for me.
-# Downside is that it's technically a command-line tool, so we have to use subprocess or something like that, but it's not that complex.
-
-import subprocess
-import json
 
 def get_video_metadata_with_ytdlp(url):
     result = subprocess.run(
@@ -56,27 +47,6 @@ def get_video_metadata_with_ytdlp(url):
         return None
     return json.loads(result.stdout)
 
-# this function can then be called with this code:
-meta = get_video_metadata_with_ytdlp(url)
-print(meta["title"], meta["description"])
-
-def retrieve_video_info(url):
-    """
-    Fetches YouTube video information from a given video URL.
-
-    Args:
-        url (str): YouTube video URL.
-
-    Returns:
-        dict: Video information including title, description, and view count.
-    """
-    yt = YouTube(url)
-    
-    return {
-        "title": yt.title,
-        "description": yt.description
-    }
-    
 def get_sentiment(comment):
     """
     Function to get sentiment of a comment.
