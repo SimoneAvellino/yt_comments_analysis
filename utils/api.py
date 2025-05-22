@@ -46,15 +46,3 @@ def get_video_metadata_with_ytdlp(url):
         print("❌ Error:", result.stderr)
         return None
     return json.loads(result.stdout)
-
-def get_sentiment(comment):
-    """
-    Function to get sentiment of a comment.
-    
-    Args:
-        comment (str): The comment text.
-
-    Returns:
-        int: 1 for positive, 0 for neutral, -1 for negative.
-    """
-    pass

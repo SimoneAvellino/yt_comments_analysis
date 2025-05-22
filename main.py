@@ -1,5 +1,5 @@
 from nltk import download
-from utils.api import retrieve_comments, get_video_metadata_with_ytdlp, get_sentiment
+from utils.api import retrieve_comments, get_video_metadata_with_ytdlp
 from utils.text_cleaner import clean_text
 import argparse
 from spelling_correction.corpus import Corpus
@@ -42,18 +42,21 @@ def main():
     youtube_url = args.youtube_url
     
     info = get_video_metadata_with_ytdlp(youtube_url)
-    # print(info.keys())
-    
-    comments = retrieve_comments(youtube_url, args.number_of_comments)
     
     print("\033[91mVideo Title:\033[0m\n    ", info['title'])
     print("\033[91mVideo Description:\033[0m", )
     for line in textwrap.wrap(info['description'], width=50):
         print("    ", line)
+    
+    comments = retrieve_comments(youtube_url, args.number_of_comments)
+    
     print("\033[91mStats on comments:\033[0m")
     print("    ", f"Number of comments retrieved {'(all)' if not args.number_of_comments else ''}:", len(comments))
     print("    ", "Number of likes:", info['like_count'])
     print("    ", "Number of views:", info['view_count'])
+    
+    if len(comments) == 0:
+        return
     
     sentiment = {
         "positive": 0,

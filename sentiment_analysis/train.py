@@ -20,6 +20,7 @@ def train_model():
     print("Preprocessing dataset...")
     dataset = dataset.dropna()
     dataset = dataset.drop_duplicates()
+    dataset = dataset.reset_index(drop=True)
     print("Cleaning text...")
     dataset['Comment'] = dataset['Comment'].apply(clean_text)
     print("Correcting spelling...")
